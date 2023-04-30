@@ -1,0 +1,46 @@
+{%  extends "base.html.twig" %}
+
+
+{%  block body %}
+<div class="container">
+    <h1 class="mt-4">Modification  de </h1>
+
+    {%  for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message}}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            <div class="form-error">
+                {{ form_errors(form.name) }}
+            </div>
+
+        </div>
+
+        <div class="col-6">
+            {{ form_label(form.price) }}
+            {{ form_widget(form.price) }}
+            <div class="class">
+                {{ form_errors(form.price) }}
+            </div>
+        </div>
+
+        <div class="col">
+            {{ form_row(form.submit) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+
+</div>
+
+{%  endblock %}

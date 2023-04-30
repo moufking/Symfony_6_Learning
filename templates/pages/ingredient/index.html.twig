@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IngredientController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Les ingredients </h1>
+        {%  for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message}}
+            </div>
+
+        {% endfor %}
+
+        {%  for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message}}
+            </div>
+
+        {% endfor %}
+
+        <a href="{{ path('app_ingredient_new') }}" class="btn btn-primary mb-4"> Ajouter</a>
+
+
+        {%  if  ingredients|length  > 0 %}
+        <div class="container mt-4">
+                 <small>
+                    {{ ingredients.getTotalItemCount }}
+                </small>
+
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">CreatedAt</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+
+                 {%  for ingredient in ingredients %}
+                  </tr>
+                    <th scope="row">{{ingredient.id }} </th>
+                        <td>{{ ingredient.name }}</td>
+                        <td>{{ ingredient.price }}</td>
+                        <td>{{ingredient.createdAt | date('m/d/y')  }}</td>
+                        <td>
+                            <a class="btn btn-success"  href="{{ path('app_ingredient_edit', {id: ingredient.id }  )}}"> Edit </a>
+                            <a class="btn btn-danger"   href="{{ path('app_ingredient_delete', {id: ingredient.id}  )}}"> Delete </a>
+
+                        </td>
+
+                    <tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="navigation d-flex justify-content-center">
+                {{ knp_pagination_render(ingredients) }}
+            </div>
+
+        </div>
+        {% else %}
+            <div class="alert alert-info">
+                <p>Il y'a pas d'ingrédient </p>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
